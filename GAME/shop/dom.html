@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Local Storage Example</title>
+</head>
+<body>
+  <h2>Enter Your Name</h2>
+  <input type="text" id="nameInput" placeholder="Your nameyou">
+  <button onclick="saveName()">Save</button>
+  <button onclick="clearName()">Clear</button>
+
+  <h3 id="displayArea"></h3>
+
+  <script>
+    // Show saved name when page loads
+    window.onload = function () {
+      let savedName = localStorage.getItem("username");
+      if (savedName) {
+        document.getElementById("displayArea").innerText = "Hello, " + savedName + "!";
+      }
+    };
+
+    function saveName() {
+      let name = document.getElementById("nameInput").value;
+      if (name.trim() !== "") {
+        localStorage.setItem("username", name);
+        document.getElementById("displayArea").innerText = "Hello, " + name + "!";
+        alert("Name saved!");  // BOM alert
+      } else {
+        alert("Please enter a name");
+      }
+    }
+
+    function clearName() {
+      localStorage.removeItem("username");
+      document.getElementById("displayArea").innerText = "";
+      alert("Name cleared!");
+    }
+  </script>
+</body>
+</html>

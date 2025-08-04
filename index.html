@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brew Haven Coffee Shop</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #4e3629;
+            --secondary: #8c6e54;
+            --accent: #c0a080;
+            --light: #f5f0e6;
+            --dark: #2c241b;
+        }
+        
+        body {
+            background-color: #f9f6f0;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(rgba(78, 54, 41, 0.9), rgba(78, 54, 41, 0.9)), url('https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        .logo i {
+            color: var(--accent);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+        
+        nav a:hover {
+            color: var(--accent);
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s;
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 2rem;
+            margin-top: 80px;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            color: white;
+        }
+        
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--accent);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+        
+        .btn:hover {
+            background-color: #a58a6d;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--primary);
+            position: relative;
+            font-size: 2.5rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background-color: var(--accent);
+            border-radius: 2px;
+        }
+        
+        .menu-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .coffee-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .coffee-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .coffee-img {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .coffee-content {
+            padding: 1.5rem;
+        }
+        
+        .coffee-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+        
+        .coffee-price {
+            color: var(--secondary);
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .coffee-description {
+            color: var(--dark);
+            margin-bottom: 1.5rem;
+            min-height: 80px;
+        }
+        
+        .add-to-cart {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .quantity {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .quantity-btn {
+            background: var(--light);
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .quantity-value {
+            min-width: 30px;
+            text-align: center;
+        }
+        
+        .about-content {
+            display: flex;
+            gap: 3rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .about-image {
+            flex: 1;
+            min-width: 300px;
+            height: 400px;
+            background: url('https://images.unsplash.com/photo-1511920170033-f8396924c348?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');
+            background-size: cover;
+            background-position: center;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .hours {
+            background-color: var(--primary);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+        
+        .hours-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hours-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .hour-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 10px;
+        }
+        
+        .hour-day {
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+        
+        .cart {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            width: 350px;
+            padding: 1.5rem;
+            z-index: 100;
+            transform: translateX(120%);
+            transition: transform 0.4s;
+        }
+        
+        .cart.active {
+            transform: translateX(0);
+        }
+        
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--light);
+        }
+        
+        .cart-title {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+        
+        .close-cart {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark);
+        }
+        
+        .cart-items {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-bottom: 1.5rem;
+        }
+        
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid var(--light);
+        }
+        
+        .item-info {
+            flex: 1;
+        }
+        
+        .item-name {
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+        
+        .item-price {
+            color: var(--secondary);
+        }
+        
+        .item-quantity {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .remove-item {
+            background: none;
+            border: none;
+            color: #e74c3c;
+            cursor: pointer;
+        }
+        
+        .cart-total {
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-align: right;
+            margin: 1rem 0;
+            color: var(--primary);
+        }
+        
+        .cart-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .cart-btn {
+            flex: 1;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: 600;
+        }
+        
+        .checkout {
+            background: var(--accent);
+            color: white;
+            border: none;
+        }
+        
+        .clear-cart {
+            background: #f1f1f1;
+            color: var(--dark);
+            border: 1px solid #ddd;
+        }
+        
+        .cart-icon {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: var(--primary);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+            z-index: 99;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--accent);
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+        
+        .footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .social-icons a {
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+        
+        .social-icons a:hover {
+            color: var(--accent);
+        }
+        
+        .copyright {
+            margin-top: 2rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--accent);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 1000;
+        }
+        
+        .notification.show {
+            opacity: 1;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .header-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            nav ul {
+                gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .cart {
+                width: 300px;
+                right: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <i class="fas fa-mug-hot"></i>
+                <span>Brew Haven</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#menu">Menu</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#hours">Hours</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Cart Icon -->
+    <div class="cart-icon" id="cartIcon">
+        <i class="fas fa-shopping-cart"></i>
+        <div class="cart-count" id="cartCount">0</div>
+    </div>
+    
+    <!-- Shopping Cart -->
+    <div class="cart" id="cart">
+        <div class="cart-header">
+            <h3 class="cart-title">Your Order</h3>
+            <button class="close-cart" id="closeCart">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <!-- Cart items will be added here dynamically -->
+        </div>
+        <div class="cart-total">
+            Total: $<span id="cartTotal">0.00</span>
+        </div>
+        <div class="cart-buttons">
+            <button class="cart-btn clear-cart" id="clearCart">Clear Cart</button>
+            <button class="cart-btn checkout" id="checkout">Checkout</button>
+        </div>
+    </div>
+    
+    <!-- Notification -->
+    <div class="notification" id="notification">Item added to cart!</div>
+    
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Experience the Perfect Brew</h1>
+            <p>Handcrafted coffee made with passion and precision</p>
+            <button class="btn" id="menuBtn">Explore Our Menu</button>
+        </div>
+    </section>
+    
+    <!-- Menu Section -->
+    <section class="section" id="menu">
+        <h2 class="section-title">Our Coffee Selection</h2>
+        <div class="menu-container" id="menuContainer">
+            <!-- Menu items will be added here dynamically -->
+        </div>
+    </section>
+    
+    <!-- About Section -->
+    <section class="section" id="about">
+        <h2 class="section-title">Our Story</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <p>Brew Haven was founded in 2010 with a simple mission: to serve exceptional coffee in a warm and welcoming environment.</p>
+                <p>Our beans are ethically sourced from sustainable farms around the world, roasted in small batches to bring out their unique flavors and characteristics.</p>
+                <p>Each cup is carefully crafted by our skilled baristas who are passionate about the art of coffee making.</p>
+                <p>We believe that great coffee should be an experience - from the aroma that greets you as you walk in, to the last satisfying sip.</p>
+                <button class="btn" style="margin-top: 1.5rem;">Learn More</button>
+            </div>
+            <div class="about-image"></div>
+        </div>
+    </section>
+    
+    <!-- Hours Section -->
+    <section class="hours" id="hours">
+        <div class="hours-container">
+            <h2 class="section-title" style="color: white;">Opening Hours</h2>
+            <div class="hours-grid">
+                <div class="hour-item">
+                    <div class="hour-day">Monday - Friday</div>
+                    <div class="hour-time">7:00 AM - 8:00 PM</div>
+                </div>
+                <div class="hour-item">
+                    <div class="hour-day">Saturday</div>
+                    <div class="hour-time">8:00 AM - 9:00 PM</div>
+                </div>
+                <div class="hour-item">
+                    <div class="hour-day">Sunday</div>
+                    <div class="hour-time">8:00 AM - 6:00 PM</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="logo">
+            <i class="fas fa-mug-hot"></i>
+            <span>Brew Haven</span>
+        </div>
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-tiktok"></i></a>
+        </div>
+        <p>123 Coffee Street, Brewville, CA 12345</p>
+        <p>contact@brewhaven.com | (123) 456-7890</p>
+        <p class="copyright">© 2023 Brew Haven Coffee Shop. All rights reserved.</p>
+    </footer>
+    
+    <script>
+        // Coffee menu data
+        const coffeeMenu = [
+            {
+                id: 1,
+                name: "Espresso",
+                description: "A strong, concentrated coffee brewed by forcing hot water through finely-ground coffee beans.",
+                price: 3.50,
+                image: "espresso"
+            },
+            {
+                id: 2,
+                name: "Cappuccino",
+                description: "Equal parts espresso, steamed milk, and velvety milk foam. Perfectly balanced.",
+                price: 4.75,
+                image: "cappuccino"
+            },
+            {
+                id: 3,
+                name: "Latte",
+                description: "Smooth espresso combined with steamed milk and a light layer of foam.",
+                price: 4.95,
+                image: "latte"
+            },
+            {
+                id: 4,
+                name: "Mocha",
+                description: "Espresso with steamed milk, chocolate syrup, and topped with whipped cream.",
+                price: 5.25,
+                image: "mocha"
+            },
+            {
+                id: 5,
+                name: "Americano",
+                description: "Espresso shots topped with hot water for a rich, deep flavor.",
+                price: 3.75,
+                image: "americano"
+            },
+            {
+                id: 6,
+                name: "Cold Brew",
+                description: "Slow-steeped in cold water for 12 hours, resulting in a smooth, low-acid coffee.",
+                price: 4.50,
+                image: "cold-brew"
+            },
+            {
+                id: 7,
+                name: "Flat White",
+                description: "Double espresso with microfoam for a velvety texture and strong coffee flavor.",
+                price: 4.85,
+                image: "flat-white"
+            },
+            {
+                id: 8,
+                name: "Macchiato",
+                description: "Espresso 'stained' with a small amount of steamed milk.",
+                price: 4.25,
+                image: "macchiato"
+            }
+        ];
+
+        // Cart state
+        let cart = [];
+        let cartTotal = 0;
+        
+        // DOM elements
+        const menuContainer = document.getElementById('menuContainer');
+        const cartIcon = document.getElementById('cartIcon');
+        const cartElement = document.getElementById('cart');
+        const closeCart = document.getElementById('closeCart');
+        const cartItems = document.getElementById('cartItems');
+        const cartCount = document.getElementById('cartCount');
+        const cartTotalElement = document.getElementById('cartTotal');
+        const clearCartBtn = document.getElementById('clearCart');
+        const checkoutBtn = document.getElementById('checkout');
+        const notification = document.getElementById('notification');
+        const menuBtn = document.getElementById('menuBtn');
+        
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', () => {
+            renderMenu();
+            setupEventListeners();
+        });
+        
+        // Render coffee menu
+        function renderMenu() {
+            menuContainer.innerHTML = '';
+            
+            coffeeMenu.forEach(coffee => {
+                const card = document.createElement('div');
+                card.className = 'coffee-card';
+                
+                // Generate random image URL from Unsplash with coffee name
+                const imageUrl = `https://source.unsplash.com/300x200/?${coffee.image},coffee`;
+                
+                card.innerHTML = `
+                    <div class="coffee-img" style="background-image: url(${imageUrl})"></div>
+                    <div class="coffee-content">
+                        <h3 class="coffee-title">${coffee.name}</h3>
+                        <div class="coffee-price">$${coffee.price.toFixed(2)}</div>
+                        <p class="coffee-description">${coffee.description}</p>
+                        <div class="add-to-cart">
+                            <div class="quantity">
+                                <button class="quantity-btn minus" data-id="${coffee.id}">-</button>
+                                <span class="quantity-value" data-id="${coffee.id}">1</span>
+                                <button class="quantity-btn plus" data-id="${coffee.id}">+</button>
+                            </div>
+                            <button class="btn add-to-cart-btn" data-id="${coffee.id}">Add to Cart</button>
+                        </div>
+                    </div>
+                `;
+                
+                menuContainer.appendChild(card);
+            });
+        }
+        
+        // Set up event listeners
+        function setupEventListeners() {
+            // Add to cart buttons
+            menuContainer.addEventListener('click', (e) => {
+                if (e.target.classList.contains('add-to-cart-btn')) {
+                    const id = parseInt(e.target.dataset.id);
+                    const quantityElement = document.querySelector(`.quantity-value[data-id="${id}"]`);
+                    const quantity = parseInt(quantityElement.textContent);
+                    addToCart(id, quantity);
+                }
+                
+                // Quantity buttons
+                if (e.target.classList.contains('quantity-btn')) {
+                    const id = parseInt(e.target.dataset.id);
+                    const quantityElement = document.querySelector(`.quantity-value[data-id="${id}"]`);
+                    let quantity = parseInt(quantityElement.textContent);
+                    
+                    if (e.target.classList.contains('plus')) {
+                        quantity++;
+                    } else if (e.target.classList.contains('minus') && quantity > 1) {
+                        quantity--;
+                    }
+                    
+                    quantityElement.textContent = quantity;
+                }
+            });
+            
+            // Cart interactions
+            cartIcon.addEventListener('click', toggleCart);
+            closeCart.addEventListener('click', toggleCart);
+            clearCartBtn.addEventListener('click', clearCart);
+            checkoutBtn.addEventListener('click', checkout);
+            
+            // Smooth scrolling for navigation
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        window.scrollTo({
+                            top: target.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Menu button scroll
+            menuBtn.addEventListener('click', () => {
+                document.getElementById('menu').scrollIntoView({ behavior: 'smooth' });
+            });
+        }
+        
+        // Add item to cart
+        function addToCart(id, quantity) {
+            const coffee = coffeeMenu.find(item => item.id === id);
+            
+            if (coffee) {
+                const existingItem = cart.find(item => item.id === id);
+                
+                if (existingItem) {
+                    existingItem.quantity += quantity;
+                } else {
+                    cart.push({
+                        id: coffee.id,
+                        name: coffee.name,
+                        price: coffee.price,
+                        quantity: quantity
+                    });
+                }
+                
+                updateCart();
+                showNotification(`${quantity} ${coffee.name} added to cart!`);
+            }
+        }
+        
+        // Update cart display
+        function updateCart() {
+            cartItems.innerHTML = '';
+            cartTotal = 0;
+            let itemCount = 0;
+            
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                cartTotal += itemTotal;
+                itemCount += item.quantity;
+                
+                const cartItem = document.createElement('div');
+                cartItem.className = 'cart-item';
+                cartItem.innerHTML = `
+                    <div class="item-info">
+                        <div class="item-name">${item.name}</div>
+                        <div class="item-price">$${item.price.toFixed(2)} × ${item.quantity}</div>
+                    </div>
+                    <div class="item-quantity">
+                        <div class="item-total">$${itemTotal.toFixed(2)}</div>
+                        <button class="remove-item" data-id="${item.id}">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                `;
+                
+                cartItems.appendChild(cartItem);
+            });
+            
+            cartTotalElement.textContent = cartTotal.toFixed(2);
+            cartCount.textContent = itemCount;
+            
+            // Add event listeners to remove buttons
+            document.querySelectorAll('.remove-item').forEach(button => {
+                button.addEventListener('click', () => {
+                    const id = parseInt(button.dataset.id);
+                    removeFromCart(id);
+                });
+            });
+        }
+        
+        // Remove item from cart
+        function removeFromCart(id) {
+            cart = cart.filter(item => item.id !== id);
+            updateCart();
+            showNotification('Item removed from cart');
+        }
+        
+        // Clear cart
+        function clearCart() {
+            cart = [];
+            updateCart();
+            showNotification('Cart cleared');
+        }
+        
+        // Checkout
+        function checkout() {
+            if (cart.length === 0) {
+                showNotification('Your cart is empty!');
+                return;
+            }
+            
+            showNotification('Order placed successfully! Thank you!');
+            clearCart();
+            toggleCart();
+        }
+        
+        // Toggle cart visibility
+        function toggleCart() {
+            cartElement.classList.toggle('active');
+        }
+        
+        // Show notification
+        function showNotification(message) {
+            notification.textContent = message;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

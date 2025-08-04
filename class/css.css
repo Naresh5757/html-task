@@ -1,0 +1,13 @@
+.box{
+    height: 100px;
+    width: 100px;
+    border: 1px rgb(24, 22, 22);
+    margin: 5px;
+    text-align: center;
+    background-color: blue;
+
+}
+
+body{
+    background-color: aquamarine;
+}

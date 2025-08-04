@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input id="itemInput" type="text" placeholder="Add item">
+<button onclick="addItem()">Add</button>
+<ul id="groceryList"></ul>
+
+    <h2 id="title">Welcome</h2>
+<button onclick="changeText()">Change</button>
+<br>
+<input type="password" id="name">
+<button onclick="togglePassword()">Show/Hide</button>
+
+
+</body>
+<script>
+// function changeText() {
+//   const heading = document.getElementById("title");
+//   heading.textContent = "Hello from JavaScript!";
+//   heading.style.color = "green";
+function changeText(){
+    const heading = document.getElementById('title');
+    heading.textContent = "hello bro";
+    heading.style.color = "red";
+}
+
+function addItem() {
+  const input = document.getElementById("itemInput");
+  const li = document.createElement("li");
+  li.textContent = input.value;
+  document.getElementById("groceryList").appendChild(li);
+  input.value = "";
+}
+function togglePassword() {
+  let input = document.getElementById("name");
+  input.type = input.type === "name" ? "text" : "name";
+}
+
+
+</script>
+</html>

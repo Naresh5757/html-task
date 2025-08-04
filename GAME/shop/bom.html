@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>User Info Dashboard</title>
+  <style>
+    body {
+      font-family: Arial;
+      background-color: #f0f8ff;
+      padding: 20px;
+    }
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      width: 300px;
+      box-shadow: 0 0 10px #ccc;
+    }
+    button {
+      margin-top: 10px;
+      padding: 8px 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h2 id="greeting">Hello!</h2>
+    <p><strong>Screen Size:</strong> <span id="screenSize"></span></p>
+    <p><strong>Current URL:</strong> <span id="url"></span></p>
+    <p><strong>Online Status:</strong> <span id="online"></span></p>
+    <p><strong>Time:</strong> <span id="clock"></span></p>
+    <button onclick="goToGoogle()">Go to Google</button>
+  </div>
+
+  <script>
+    // Ask for name
+    let name = prompt("What's your name?");
+    document.getElementById("greeting").innerText = `Hello, ${name}!`;
+
+    // BOM properties
+    document.getElementById("screenSize").innerText = `${screen.width} x ${screen.height}`;
+    document.getElementById("url").innerText = location.href;
+    document.getElementById("online").innerText = navigator.onLine ? "Online" : "Offline";
+
+    // Clock using setInterval
+    setInterval(() => {
+      let now = new Date();
+      document.getElementById("clock").innerText = now.toLocaleTimeString();
+    }, 1000);
+
+    // Redirect function
+    function goToGoogle() {
+      let sure = confirm("Do you want to leave this page and go to Google?");
+      if (sure) {
+        location.href = "https://www.google.com";
+      }
+    }
+    document.cookie.endsWith('greeting').innerText= goToGoogle();
+  </script>
+
+</body>
+</html>
